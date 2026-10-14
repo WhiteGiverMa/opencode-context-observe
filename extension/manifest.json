@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "OpenCode Context Observer",
+  "version": "0.1.0",
+  "description": "在 OpenCode 网页上查看实际发送给 LLM 提供商的请求上下文（增量/原始/逻辑/差异）。",
+  "permissions": ["activeTab", "scripting"],
+  "optional_host_permissions": ["http://localhost/*", "http://127.0.0.1/*", "http://*/*", "https://*/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "上下文观察器"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

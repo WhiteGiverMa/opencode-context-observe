@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-14",
+  "pluginID": "o3p.context.observe",
+  "sourceReference": "OpenCode v2.0.28 / 026b106bc5d41b679ffc413264229c340871e4d3",
+  "nativeHost": "official OpenCode v2.0.27, Linux/WSL",
+  "frontendAuthorModel": "kimi-code-plan-cn/k3",
+  "static": {
+    "rootTypecheck": "pass",
+    "extensionTypecheck": "pass",
+    "tests": { "passed": 89, "failed": 0, "assertions": 254 },
+    "build": "pass",
+    "sourceDiagnosticsErrors": 0,
+    "packageDryRun": { "files": 14, "privateFixtureDataIncluded": false }
+  },
+  "nativeHTTP": {
+    "exactOutgoingBody": true,
+    "secondRequestAppend": true,
+    "leanDetailQuery": true,
+    "unauthenticatedQueryRejected": true,
+    "authenticationSecretAbsentFromResults": true
+  },
+  "nativeWebSocket": {
+    "exactOutgoingFrames": true,
+    "secondRequestUsesPreviousResponseID": true,
+    "logicalViewRetained": true,
+    "leanDetailQuery": true
+  },
+  "chrome": {
+    "version": "148.0.7778.178",
+    "actualExtensionLoaded": true,
+    "pageCookieAuthentication": true,
+    "popupPageProbeAndContentInjection": true,
+    "incrementalAndRawViews": true,
+    "search": true,
+    "captureContinuesWhileViewerPaused": true,
+    "detailExport": true,
+    "prefixRebuildBanner": true,
+    "automaticFullLogicalView": true,
+    "appendAfterRebuildReturnsIncremental": true,
+    "leanNetworkQueryAndFullOnDemand": true,
+    "pageErrors": 0,
+    "fixtureLoopbackPermissionPregranted": true,
+    "toolbarPermissionPromptAutomated": false
+  },
+  "TUI": {
+    "realNativeTmuxSession": true,
+    "slashCommand": true,
+    "sessionPanelAndFullscreen": true,
+    "incrementalAndRawViews": true,
+    "longSingleLineSearchAndHorizontalPan": true,
+    "prefixRebuildBannerAndFullLogicalView": true,
+    "exportUsesClickedRecordDespiteSelectionChange": true,
+    "exportContainsFullBodies": true,
+    "exportFileMode": "0600"
+  },
+  "cleanup": { "ownedHostsStopped": true, "ownedTUIStopped": true, "fixtureSandboxRemoved": true },
+  "notVerified": ["Edge runtime", "native Windows", "first-time toolbar permission prompt", "desktop embedding"],
+  "productionConfigurationChanged": false,
+  "productionServiceRestarted": false,
+  "committedOrPublished": false
+}
