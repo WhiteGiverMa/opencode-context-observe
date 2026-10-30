@@ -1,15 +1,16 @@
 import { describe, expect, test } from "bun:test"
 import type { ScrollBoxRenderable } from "@opentui/core"
 import { testRender } from "@opentui/solid"
+import { panScrollBoxX } from "../src/ui/scroll.ts"
 import { contentWidth, displayColumnAt, displayWidth } from "../src/ui/width.ts"
 
 // Renderer-boundary test for the detail pane's horizontal access pattern.
-// Background: @opentui/solid 0.5.14 constructs renderables with only {id} and
-// applies props afterwards, while ScrollBoxRenderable's scrollX option is
-// constructor-only — so JSX scrollX is a no-op and the scrollbox content
-// keeps maxWidth:100%. The view therefore (a) gives the inner box the
-// intrinsic content width with flexShrink 0 and (b) pans horizontally via the
-// public content.translateX, exactly like the native horizontal scrollbar.
+// Background: OpenTUI 0.8 made ScrollBox scroll state native and removed the
+// content renderable, so content.translateX no longer moves the children. On
+// 0.7 and earlier scrollX is constructor-only, so the Solid reconciler cannot
+// enable it after construction and translateX is still the only way to pan.
+// panScrollBoxX keeps both hosts working; this test runs against the installed
+// OpenTUI and pins whichever path that version takes.
 
 const LONG_LINE = `{"model":"gpt-x","messages":[${"\"content\":\"甲乙丙丁abcdefghi\",".repeat(40)}],"end":"ENDMARK"}`
 
@@ -54,7 +55,7 @@ describe("detail pane horizontal layout (renderer boundary)", () => {
       // Same computation the view's search jump / arrow pan uses.
       const markerAt = LONG_LINE.indexOf("ENDMARK")
       const x = Math.max(0, displayColumnAt(LONG_LINE, markerAt) - 4)
-      detail.content.translateX = -x
+      panScrollBoxX(detail, x)
       await setup.renderOnce()
       const end = setup.captureCharFrame()
       expect(end).toContain("ENDMARK")

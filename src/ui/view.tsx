@@ -22,6 +22,7 @@ import {
   type DiffLine,
   type ViewMode,
 } from "./model.ts"
+import { panScrollBoxX } from "./scroll.ts"
 import { ObserverState, type ObserverSource } from "./state.ts"
 import { contentWidth, displayColumnAt } from "./width.ts"
 
@@ -206,14 +207,15 @@ export function ObserverView(props: ObserverViewProps) {
   // Intrinsic width of the widest displayed line, memoized per content text.
   // The detail wrapper gets this width with flexShrink 0 so the text renders
   // at full width inside the scrollbox content (which the Solid reconciler
-  // keeps clamped to the viewport: ScrollBoxRenderable's scrollX option is
-  // constructor-only, while the reconciler sets props after construction).
+  // keeps clamped to the viewport: on 0.7 and earlier ScrollBoxRenderable's
+  // scrollX option is constructor-only, while the reconciler sets props after
+  // construction).
   const detailWidth = createMemo(() => {
     const current = content()
     return current ? contentWidth(current.text) : 1
   })
-  // Horizontal panning is therefore manual: content.translateX is public and
-  // is exactly what the native horizontal scrollbar would drive.
+  // Horizontal panning is manual on the old renderer (content.translateX) and
+  // native on 0.8+ (scrollX + scrollTo); panScrollBoxX picks the host's form.
   const [detailX, setDetailX] = createSignal(0)
   const maxDetailX = () => {
     dimensions()
@@ -228,7 +230,7 @@ export function ObserverView(props: ObserverViewProps) {
     if (!box) return
     const x = Math.min(detailX(), maxDetailX())
     if (x !== detailX()) setDetailX(x)
-    box.content.translateX = -x
+    panScrollBoxX(box, x)
   })
   const notices = createMemo((): readonly string[] => content()?.notices ?? [])
   const matches = createMemo(() => {

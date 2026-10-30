@@ -13,7 +13,7 @@
 
 ## 构建与加载
 
-需要 Bun 和 OpenCode v2.0.27+；开发类型固定 `@opencode/plugin@2.0.28`。
+需要 Bun 和 OpenCode v2.0.27+；开发类型固定 `@opencode/plugin@2.2.3` 与 `@opentui/* 0.8.0`。TUI 详情栏同时兼容 OpenTUI 0.6–0.8 的 ScrollBox 滚动接口。
 
 ```sh
 bun install --frozen-lockfile
@@ -72,3 +72,5 @@ OPENCODE_QA_BINARY=/path/to/opencode node qa/native.mjs
 浏览器/TUI 联合验收脚本在 `qa/`。它们使用专属临时配置与随机端口；浏览器脚本需要已安装 Chrome 和 Playwright Core，`PLAYWRIGHT_MODULE` 可指定模块路径。
 
 本轮验证环境：Linux/WSL、官方 OpenCode v2.0.27、本地 HTTP/WebSocket mock、Chrome 148。TUI 的面板/全屏、长行横向查看、搜索与私有导出已手动验证；浏览器的 cookie 认证、扩展注入、增量/全量按需读取、重建提示与导出已通过真实浏览器驱动。无头浏览器使用专属 fixture 预授予 loopback 站点权限，首次工具栏授权弹窗未自动化；Edge 的实际运行和原生 Windows 未验证。
+
+2026-10-30 兼容性回归：`qa/native.mjs` 在 OpenCode 2.2.3 + OpenTUI 0.8 与 2.1.2 + OpenTUI 0.6 上均通过；两个版本的 TUI 都能加载命令与观察器页面。
